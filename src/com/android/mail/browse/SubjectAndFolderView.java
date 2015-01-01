@@ -62,7 +62,7 @@ public class SubjectAndFolderView extends TextView
 
     private ConversationFolderDisplayer mFolderDisplayer;
 
-    private String mSubject;
+    private String mSubject = "";
 
     private boolean mVisibleFolders;
 
@@ -142,6 +142,7 @@ public class SubjectAndFolderView extends TextView
 
     public void setSubject(String subject) {
         mSubject = Conversation.getSubjectForDisplay(getContext(), null /* badgeText */, subject);
+        if(mSubject == null) mSubject = "";
 
         if (!mVisibleFolders) {
             setText(mSubject);
@@ -154,6 +155,7 @@ public class SubjectAndFolderView extends TextView
         final BidiFormatter bidiFormatter = getBidiFormatter();
         final SpannableStringBuilder sb =
                 new SpannableStringBuilder(bidiFormatter.unicodeWrap(mSubject));
+
         sb.append('\u0020');
         final Settings settings = account.settings;
         final int start = sb.length();
