@@ -714,9 +714,11 @@ public class Message implements Parcelable, HtmlMessage {
         String body = "";
         if (!TextUtils.isEmpty(bodyHtml)) {
             body = bodyHtml;
-        } else if (!TextUtils.isEmpty(bodyText)) {
+        } else if (!TextUtils.isEmpty(bodyText)  && bodyText.length() > 3000) {
+            body = bodyText;
+        } else if (!TextUtils.isEmpty(bodyText) ) {
             final SpannableString spannable = new SpannableString(bodyText);
-            Linkify.addLinks(spannable, Linkify.ALL);
+            Linkify.addLinks(spannable, Linkify.EMAIL_ADDRESSES | Linkify.WEB_URLS);
             body = Html.toHtml(spannable);
         }
         return body;
